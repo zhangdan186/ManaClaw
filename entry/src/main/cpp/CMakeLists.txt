@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.18)
 project(cc_ssh_wrapper C)
 
+find_package(Threads REQUIRED)
+
 set(ENABLE_PROGRAMS OFF CACHE BOOL "" FORCE)
 set(ENABLE_TESTING OFF CACHE BOOL "" FORCE)
 set(MBEDTLS_FATAL_WARNINGS OFF CACHE BOOL "" FORCE)
@@ -26,4 +28,4 @@ add_subdirectory(third_party/libssh2)
 
 add_library(ccssh SHARED cc_ssh.c)
 target_include_directories(ccssh PRIVATE third_party/libssh2/include)
-target_link_libraries(ccssh PRIVATE libssh2_static)
+target_link_libraries(ccssh PRIVATE libssh2_static Threads::Threads)

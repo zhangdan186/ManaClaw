@@ -6,6 +6,10 @@ foreign func cc_ssh_connect(host: CString, port: Int32, user: CString, password:
 
 foreign func cc_ssh_exec(command: CString, timeoutMs: Int32): Int32
 
+foreign func cc_ssh_exec_once(host: CString, port: Int32, user: CString, password: CString, command: CString, connectTimeoutMs: Int32, execTimeoutMs: Int32): Int32
+
+foreign func cc_ssh_release_result(): Int32
+
 foreign func cc_ssh_disconnect(): Int32
 
 foreign func cc_ssh_stdout(): CString
@@ -34,28 +38,24 @@ class SshClient {
             let cPassword = LibC.mallocCString(password)
             let cCommand = LibC.mallocCString(command)
 
-            let connected = cc_ssh_connect(cHost, port, cUser, cPassword, 3000)
-            cHost.free()
-            cUser.free()
-            cPassword.free()
-
-            if (connected != 0) {
-                let err = cc_ssh_last_error().toString()
-                cc_ssh_disconnect()
+            try {
+                let code = cc_ssh_exec_once(cHost, port, cUser, cPassword, cCommand, 3000, timeoutMs)
+                cHost.free()
+                cUser.free()
+                cPassword.free()
                 cCommand.free()
-                return ExecResult(connected, "", err)
-            }
 
-            let code = cc_ssh_exec(cCommand, timeoutMs)
-            cCommand.free()
-            let out = cc_ssh_stdout().toString()
-            let err = cc_ssh_stderr().toString()
-            cc_ssh_disconnect()
-
-            if (code < 0 && err.size == 0) {
-                return ExecResult(code, out, cc_ssh_last_error().toString())
+                let out = cc_ssh_stdout().toString()
+                let err = cc_ssh_stderr().toString()
+                let finalErr = if (code < 0 && err.size == 0) {
+                    cc_ssh_last_error().toString()
+                } else {
+                    err
+                }
+                return ExecResult(code, out, finalErr)
+            } finally {
+                cc_ssh_release_result()
             }
-            return ExecResult(code, out, err)
         }
     }
 

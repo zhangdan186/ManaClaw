@@ -22,6 +22,7 @@ public enum RunMode {
  */
 class TaskCommandInput {
     let taskId: String
+    let title: String
     let repoPath: String
     let worktreePath: String
     let branchName: String
@@ -31,6 +32,7 @@ class TaskCommandInput {
 
     public init(
         taskId: String,
+        title: String,
         repoPath: String,
         worktreePath: String,
         branchName: String,
@@ -39,6 +41,7 @@ class TaskCommandInput {
         mode: RunMode
     ) {
         this.taskId = taskId
+        this.title = title
         this.repoPath = repoPath
         this.worktreePath = worktreePath
         this.branchName = branchName
@@ -59,6 +62,7 @@ class TaskCommandInput {
         promptBase64: String
     ) {
         this.taskId = taskId
+        this.title = ""
         this.repoPath = repoPath
         this.worktreePath = worktreePath
         this.branchName = branchName
@@ -242,6 +246,7 @@ printf "ok\\n"
 
     public static func createTaskScript(
         taskIdQuoted: String,
+        titleQuoted: String,
         repoQuoted: String,
         branchQuoted: String,
         tmuxQuoted: String,
@@ -252,6 +257,7 @@ printf "ok\\n"
 set -euo pipefail
 
 TASK_ID=${taskIdQuoted}
+TITLE_VALUE=${titleQuoted}
 REPO=${repoQuoted}
 ROOT="$HOME/.cc-mobile"
 TASK_DIR="$ROOT/tasks/$TASK_ID"
@@ -267,6 +273,7 @@ printf "%s" "$PROMPT_B64" | base64 -d > "$TASK_DIR/prompt.txt"
 
 {
   printf "TASK_ID=%q\\n" "$TASK_ID"
+  printf "TITLE=%q\\n" "$TITLE_VALUE"
   printf "REPO=%q\\n" "$REPO"
   printf "WORKTREE=%q\\n" "$WT_DIR"
   printf "BRANCH=%q\\n" "$BRANCH"
@@ -426,12 +433,20 @@ for d in "$ROOT"/*; do
   branch=""
   worktree=""
   tmux_name=""
+  title=""
 
   if [ -f "$meta" ]; then
-    repo=$(grep "^REPO=" "$meta" | cut -d= -f2-)
-    branch=$(grep "^BRANCH=" "$meta" | cut -d= -f2-)
-    worktree=$(grep "^WORKTREE=" "$meta" | cut -d= -f2-)
-    tmux_name=$(grep "^TMUX=" "$meta" | cut -d= -f2-)
+    REPO=""
+    BRANCH=""
+    WORKTREE=""
+    TMUX=""
+    TITLE=""
+    . "$meta"
+    repo="$REPO"
+    branch="$BRANCH"
+    worktree="$WORKTREE"
+    tmux_name="$TMUX"
+    title="$TITLE"
   fi
 
   if [ -n "$tmux_name" ] && tmux has-session -t "$tmux_name" 2>/dev/null; then
@@ -440,8 +455,8 @@ for d in "$ROOT"/*; do
     live="false"
   fi
 
-  printf "%s\\t%s\\t%s\\t%s\\t%s\\t%s\\t%s\\n" \\
-    "$task_id" "$status" "$live" "$exit_code" "$repo" "$branch" "$worktree"
+  printf "%s\\t%s\\t%s\\t%s\\t%s\\t%s\\t%s\\t%s\\n" \\
+    "$task_id" "$status" "$live" "$exit_code" "$repo" "$branch" "$worktree" "$(printf "%s" "$title" | tr "\\t\\r\\n" "   ")"
 done
 """
     }
@@ -456,6 +471,7 @@ TASK_DIR="$HOME/.cc-mobile/tasks/$TASK_ID"
 
 STATUS=$(cat "$TASK_DIR/status" 2>/dev/null || echo unknown)
 EXIT_CODE=$(cat "$TASK_DIR/exit.code" 2>/dev/null || echo "")
+TITLE=""
 . "$TASK_DIR/meta.env"
 
 if tmux has-session -t "$TMUX" 2>/dev/null; then
@@ -465,6 +481,7 @@ else
 fi
 
 printf "task_id=%s\\n" "$TASK_ID"
+printf "title=%s\\n" "$(printf "%s" "$TITLE" | tr "\\r\\n" "  ")"
 printf "status=%s\\n" "$STATUS"
 printf "live=%s\\n" "$LIVE"
 printf "exit_code=%s\\n" "$EXIT_CODE"
@@ -611,6 +628,7 @@ class CommandBuilder {
 
         let script = RemoteScripts.createTaskScript(
             ShellEscape.shellSingleQuote(input.taskId),
+            ShellEscape.shellSingleQuote(input.title),
             ShellEscape.shellSingleQuote(input.repoPath),
             ShellEscape.shellSingleQuote(branch),
             ShellEscape.shellSingleQuote(tmux),

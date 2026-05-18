@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <libssh2.h>
 #include <netdb.h>
+#include <pthread.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,6 +23,11 @@ static char g_stdout[CC_BUF_CAP];
 static char g_stderr[CC_BUF_CAP];
 static size_t g_stdout_len = 0;
 static size_t g_stderr_len = 0;
+static pthread_mutex_t g_ssh_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+static int cc_ssh_connect_unlocked(const char *host, int port, const char *user, const char *password, int timeout_ms);
+static int cc_ssh_exec_unlocked(const char *command, int timeout_ms);
+static int cc_ssh_disconnect_unlocked(void);
 
 static void set_error(const char *fmt, ...) {
     va_list args;
@@ -118,7 +124,14 @@ static int connect_tcp(const char *host, int port, int timeout_ms) {
 }
 
 int cc_ssh_connect(const char *host, int port, const char *user, const char *password, int timeout_ms) {
-    cc_ssh_disconnect();
+    pthread_mutex_lock(&g_ssh_mutex);
+    int rc = cc_ssh_connect_unlocked(host, port, user, password, timeout_ms);
+    pthread_mutex_unlock(&g_ssh_mutex);
+    return rc;
+}
+
+static int cc_ssh_connect_unlocked(const char *host, int port, const char *user, const char *password, int timeout_ms) {
+    cc_ssh_disconnect_unlocked();
     reset_output();
     g_last_error[0] = '\0';
 
@@ -142,7 +155,7 @@ int cc_ssh_connect(const char *host, int port, const char *user, const char *pas
     g_session = libssh2_session_init();
     if (g_session == NULL) {
         set_error("libssh2_session_init failed");
-        cc_ssh_disconnect();
+        cc_ssh_disconnect_unlocked();
         return -1;
     }
     libssh2_session_set_blocking(g_session, 1);
@@ -150,14 +163,14 @@ int cc_ssh_connect(const char *host, int port, const char *user, const char *pas
     rc = libssh2_session_handshake(g_session, g_sock);
     if (rc != 0) {
         set_error("ssh handshake failed: %d", rc);
-        cc_ssh_disconnect();
+        cc_ssh_disconnect_unlocked();
         return -1;
     }
 
     rc = libssh2_userauth_password(g_session, user, password);
     if (rc != 0) {
         set_error("ssh password auth failed: %d", rc);
-        cc_ssh_disconnect();
+        cc_ssh_disconnect_unlocked();
         return -1;
     }
 
@@ -166,6 +179,31 @@ int cc_ssh_connect(const char *host, int port, const char *user, const char *pas
 }
 
 int cc_ssh_exec(const char *command, int timeout_ms) {
+    pthread_mutex_lock(&g_ssh_mutex);
+    int rc = cc_ssh_exec_unlocked(command, timeout_ms);
+    pthread_mutex_unlock(&g_ssh_mutex);
+    return rc;
+}
+
+int cc_ssh_exec_once(const char *host, int port, const char *user, const char *password, const char *command,
+                     int connect_timeout_ms, int exec_timeout_ms) {
+    pthread_mutex_lock(&g_ssh_mutex);
+
+    int rc = cc_ssh_connect_unlocked(host, port, user, password, connect_timeout_ms);
+    if (rc == 0) {
+        rc = cc_ssh_exec_unlocked(command, exec_timeout_ms);
+    }
+    cc_ssh_disconnect_unlocked();
+
+    return rc;
+}
+
+int cc_ssh_release_result(void) {
+    pthread_mutex_unlock(&g_ssh_mutex);
+    return 0;
+}
+
+static int cc_ssh_exec_unlocked(const char *command, int timeout_ms) {
     reset_output();
     if (g_session == NULL || command == NULL) {
         set_error("ssh is not connected");
@@ -242,6 +280,13 @@ int cc_ssh_exec(const char *command, int timeout_ms) {
 }
 
 int cc_ssh_disconnect(void) {
+    pthread_mutex_lock(&g_ssh_mutex);
+    int rc = cc_ssh_disconnect_unlocked();
+    pthread_mutex_unlock(&g_ssh_mutex);
+    return rc;
+}
+
+static int cc_ssh_disconnect_unlocked(void) {
     if (g_session != NULL) {
         libssh2_session_disconnect(g_session, "normal shutdown");
         libssh2_session_free(g_session);

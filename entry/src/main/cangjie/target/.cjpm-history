@@ -1,0 +1,775 @@
+{
+  "resolves": [
+    {
+      "rootPackageName": "cj_res_entry",
+      "modulePath": "D:\\MyDocuments\\cangjieIDEproject\\perfect\\ManaClaw\\entry\\src\\main\\cangjie\\cj_res",
+      "packagePath": "D:\\MyDocuments\\cangjieIDEproject\\perfect\\ManaClaw\\entry\\src\\main\\cangjie\\cj_res\\src",
+      "fullName": "cj_res_entry",
+      "isMacroPackage": false,
+      "output-type": "dynamic",
+      "compile-option": "-B \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/compiler/third_party/llvm/bin\" -B \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/musl/usr/lib/aarch64-linux-ohos\" -L \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/musl/usr/lib/aarch64-linux-ohos\" -L \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/build/linux_ohos_aarch64_llvm/openssl\" --sysroot \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/musl\"",
+      "native-compile-option": "",
+      "customized-option": {
+        "debug": "-g -Woff all",
+        "release": "--fast-math -O2 -s -Woff all"
+      },
+      "link-option": "-z relro -z now -z noexecstack",
+      "native-link-option": "",
+      "requires": [],
+      "c_libs": {},
+      "isTestPkg": false,
+      "accessLevel": "public"
+    },
+    {
+      "rootPackageName": "ohos_app_cangjie_entry",
+      "modulePath": ".",
+      "packagePath": "D:\\MyDocuments\\cangjieIDEproject\\perfect\\ManaClaw\\entry\\src\\main\\cangjie",
+      "fullName": "ohos_app_cangjie_entry",
+      "isMacroPackage": false,
+      "output-type": "dynamic",
+      "compile-option": "-B \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/compiler/third_party/llvm/bin\" -B \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/musl/usr/lib/aarch64-linux-ohos\" -L \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/musl/usr/lib/aarch64-linux-ohos\" -L \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/build/linux_ohos_aarch64_llvm/openssl\" --sysroot \"C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie/musl\"",
+      "native-compile-option": "",
+      "customized-option": {
+        "debug": "-g -Woff all",
+        "release": "--fast-math -O2 -s -Woff all"
+      },
+      "link-option": "-L../../../build/default/intermediates/cmake/default/obj/arm64-v8a -lccssh",
+      "native-link-option": "",
+      "requires": [
+        "ohos.ark_interop",
+        "ohos.ark_interop_macro",
+        "ohos.base"
+      ],
+      "c_libs": {},
+      "isTestPkg": false,
+      "accessLevel": "public"
+    }
+  ],
+  "binDeps": {},
+  "crossBinDeps": {
+    "ohos_app_cangjie_entry": {
+      "package-requires": {
+        "ohos.ability": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.eventhub",
+            "ohos.ffi",
+            "ohos.hilog",
+            "ohos.image",
+            "ohos.window"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.ability"
+        },
+        "ohos.asset_store": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.asset_store"
+        },
+        "ohos.ark_interop": {
+          "isMacroPackage": false,
+          "requires": [],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.ark_interop"
+        },
+        "ohos.ark_interop_helper": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ability",
+            "ohos.ark_interop"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.ark_interop_helper"
+        },
+        "ohos.bundle_manager": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog",
+            "ohos.resource_manager"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.bundle_manager"
+        },
+        "ohos.base": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ark_interop",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.base"
+        },
+        "ohos.background_task_mgr": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.background_task_mgr"
+        },
+        "ohos": {
+          "isMacroPackage": false,
+          "requires": [],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos"
+        },
+        "ohos.common_event_manager": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.common_event_manager"
+        },
+        "ohos.concurrency": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ffi"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.concurrency"
+        },
+        "ohos.color_manager": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.color_manager"
+        },
+        "ohos.ability_access_ctrl": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.ability_access_ctrl"
+        },
+        "ohos.ability_delegator_registry": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ability",
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.ability_delegator_registry"
+        },
+        "ohos.animator": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.animator"
+        },
+        "ohos.component_ndk": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.concurrency",
+            "ohos.ffi",
+            "ohos.hi_tracemeter",
+            "ohos.hilog",
+            "ohos.image",
+            "ohos.state_manage_ndk"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.component_ndk"
+        },
+        "ohos.component": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hi_tracemeter",
+            "ohos.hilog",
+            "ohos.image",
+            "ohos.state_manage",
+            "ohos.webview"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.component"
+        },
+        "ohos.crypto": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.crypto"
+        },
+        "ohos.distributed_kv_store": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.distributed_kv_store"
+        },
+        "ohos.device_info": {
+          "isMacroPackage": false,
+          "requires": [],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.device_info"
+        },
+        "ohos.display": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.display"
+        },
+        "ohos.hilog": {
+          "isMacroPackage": false,
+          "requires": [],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.hilog"
+        },
+        "ohos.hitrace": {
+          "isMacroPackage": false,
+          "requires": [],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.hitrace"
+        },
+        "ohos.hi_tracechain": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.hi_tracechain"
+        },
+        "ohos.eventhub": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.eventhub"
+        },
+        "ohos.hi_tracemeter": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.hi_tracemeter"
+        },
+        "ohos.emitter": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.emitter"
+        },
+        "ohos.hiappevent": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.hiappevent"
+        },
+        "ohos.font": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.font"
+        },
+        "ohos.ffi": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.ffi"
+        },
+        "ohos.file_fileuri": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.file_fileuri"
+        },
+        "ohos.file_picker": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ability",
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.file_picker"
+        },
+        "ohos.file_fs": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.file_fs"
+        },
+        "ohos.hybrid_base": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ark_interop",
+            "ohos.component",
+            "ohos.concurrency",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.hybrid_base"
+        },
+        "ohos.i18n": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.i18n"
+        },
+        "ohos.measure": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.component",
+            "ohos.ffi"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.measure"
+        },
+        "ohos.image": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.color_manager",
+            "ohos.ffi",
+            "ohos.hilog",
+            "ohos.resource_manager"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.image"
+        },
+        "ohos.net.connection": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.net.connection"
+        },
+        "ohos.request.agent": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.request.agent"
+        },
+        "ohos.router": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.router"
+        },
+        "ohos.security_huks": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.security_huks"
+        },
+        "ohos.pasteboard": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog",
+            "ohos.image"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.pasteboard"
+        },
+        "ohos.relational_store": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.relational_store"
+        },
+        "ohos.net.http": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog",
+            "ohos.net.connection"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.net.http"
+        },
+        "ohos.resource_manager": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.resource_manager"
+        },
+        "ohos.prompt_action": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.component",
+            "ohos.ffi"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.prompt_action"
+        },
+        "ohos.preferences": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.preferences"
+        },
+        "ohos.notification_manager": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ability",
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog",
+            "ohos.image"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.notification_manager"
+        },
+        "ohos.state_manage": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ark_interop",
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.state_manage"
+        },
+        "ohos.state_manage_ndk": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ark_interop",
+            "ohos.base",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.state_manage_ndk"
+        },
+        "ohos.system_parameter_enhance": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.system_parameter_enhance"
+        },
+        "ohos.system_date_time": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.system_date_time"
+        },
+        "ohos.telephony_call": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.telephony_call"
+        },
+        "ohos.ark_interop_macro": {
+          "isMacroPackage": true,
+          "requires": [],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\x86_64-w64-mingw32\\macro",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\x86_64-w64-mingw32\\macro\\ohos",
+          "libName": "-macro_ohos.ark_interop_macro"
+        },
+        "ohos.ui_test": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ability",
+            "ohos.ability_delegator_registry",
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog",
+            "ohos.system_parameter_enhance"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.ui_test"
+        },
+        "ohos.webview": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog",
+            "ohos.image"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.webview"
+        },
+        "ohos.user_auth": {
+          "isMacroPackage": false,
+          "requires": [],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.user_auth"
+        },
+        "ohos.test_runner": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.test_runner"
+        },
+        "ohos.vibrator": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.file_fs",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.vibrator"
+        },
+        "ohos.work_scheduler": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.work_scheduler"
+        },
+        "ohos.window": {
+          "isMacroPackage": false,
+          "requires": [
+            "ohos.base",
+            "ohos.ffi",
+            "ohos.hilog",
+            "ohos.image"
+          ],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\linux_ohos_aarch64_llvm\\ohos",
+          "libName": "ohos.window"
+        },
+        "ohos.state_macro_manage": {
+          "isMacroPackage": true,
+          "requires": [],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\x86_64-w64-mingw32\\macro",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\x86_64-w64-mingw32\\macro\\ohos",
+          "libName": "-macro_ohos.state_macro_manage"
+        },
+        "ohos.state_macro_manage_ndk": {
+          "isMacroPackage": true,
+          "requires": [],
+          "cjPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\x86_64-w64-mingw32\\macro",
+          "libPath": "C:\\Users\\39388\\.cangjie-sdk\\5.0\\cangjie\\build\\x86_64-w64-mingw32\\macro\\ohos",
+          "libName": "-macro_ohos.state_macro_manage_ndk"
+        }
+      },
+      "packageRequiresSort": [
+        "ohos",
+        "ohos.ark_interop",
+        "ohos.ark_interop_macro",
+        "ohos.device_info",
+        "ohos.hilog",
+        "ohos.base",
+        "ohos.asset_store",
+        "ohos.eventhub",
+        "ohos.ffi",
+        "ohos.ability_access_ctrl",
+        "ohos.animator",
+        "ohos.background_task_mgr",
+        "ohos.color_manager",
+        "ohos.common_event_manager",
+        "ohos.concurrency",
+        "ohos.crypto",
+        "ohos.display",
+        "ohos.distributed_kv_store",
+        "ohos.emitter",
+        "ohos.file_fileuri",
+        "ohos.file_fs",
+        "ohos.font",
+        "ohos.hi_tracechain",
+        "ohos.hi_tracemeter",
+        "ohos.hiappevent",
+        "ohos.hitrace",
+        "ohos.i18n",
+        "ohos.net.connection",
+        "ohos.net.http",
+        "ohos.preferences",
+        "ohos.relational_store",
+        "ohos.request.agent",
+        "ohos.resource_manager",
+        "ohos.bundle_manager",
+        "ohos.image",
+        "ohos.pasteboard",
+        "ohos.router",
+        "ohos.security_huks",
+        "ohos.state_macro_manage",
+        "ohos.state_macro_manage_ndk",
+        "ohos.state_manage",
+        "ohos.state_manage_ndk",
+        "ohos.component_ndk",
+        "ohos.system_date_time",
+        "ohos.system_parameter_enhance",
+        "ohos.telephony_call",
+        "ohos.test_runner",
+        "ohos.user_auth",
+        "ohos.vibrator",
+        "ohos.webview",
+        "ohos.component",
+        "ohos.hybrid_base",
+        "ohos.measure",
+        "ohos.prompt_action",
+        "ohos.window",
+        "ohos.ability",
+        "ohos.ability_delegator_registry",
+        "ohos.ark_interop_helper",
+        "ohos.file_picker",
+        "ohos.notification_manager",
+        "ohos.ui_test",
+        "ohos.work_scheduler"
+      ]
+    }
+  }
+}

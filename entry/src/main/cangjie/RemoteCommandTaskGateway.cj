@@ -32,6 +32,7 @@ public class RemoteCommandTaskGateway <: RemoteTaskGateway {
     public func createTask(task: Task, wrappedPrompt: String): Result<Unit> {
         let input = TaskCommandInput(
             task.id,
+            task.title,
             task.repoPath,
             task.worktreePath,
             task.branchName,
@@ -45,6 +46,7 @@ public class RemoteCommandTaskGateway <: RemoteTaskGateway {
     public func startTask(task: Task): Result<Unit> {
         let input = TaskCommandInput(
             task.id,
+            task.title,
             task.repoPath,
             task.worktreePath,
             task.branchName,
@@ -135,8 +137,14 @@ public class RemoteCommandTaskGateway <: RemoteTaskGateway {
         if (parts.size < 7) {
             return None
         }
+        let title = if (parts.size >= 8) {
+            parts[7].trimAscii()
+        } else {
+            ""
+        }
         return Some(RemoteTaskRow(
             parts[0].trimAscii(),
+            title,
             taskStatusFromWire(parts[1].trimAscii()),
             parseRemoteBool(parts[2]),
             parseExitCode(parts[3]),
@@ -168,6 +176,7 @@ public class RemoteCommandTaskGateway <: RemoteTaskGateway {
 
         return taskOk<RemoteTaskStatus>(RemoteTaskStatus(
             fields.get("task_id") ?? taskId,
+            fields.get("title") ?? "",
             taskStatusFromWire(fields.get("status") ?? "unknown"),
             parseRemoteBool(fields.get("live") ?? "false"),
             parseExitCode(fields.get("exit_code") ?? ""),

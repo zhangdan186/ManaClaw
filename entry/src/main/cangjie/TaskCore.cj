@@ -135,6 +135,7 @@ public class InitResult {
 
 public class RemoteTaskRow {
     public let taskId: String
+    public let title: String
     public let status: TaskStatus
     public let live: Bool
     public let exitCode: Option<Int64>
@@ -144,6 +145,7 @@ public class RemoteTaskRow {
 
     public init(
         taskId: String,
+        title: String,
         status: TaskStatus,
         live: Bool,
         exitCode: Option<Int64>,
@@ -152,6 +154,7 @@ public class RemoteTaskRow {
         worktree: String
     ) {
         this.taskId = taskId
+        this.title = title
         this.status = status
         this.live = live
         this.exitCode = exitCode
@@ -163,6 +166,7 @@ public class RemoteTaskRow {
 
 public class RemoteTaskStatus {
     public let taskId: String
+    public let title: String
     public let status: TaskStatus
     public let live: Bool
     public let exitCode: Option<Int64>
@@ -173,6 +177,7 @@ public class RemoteTaskStatus {
 
     public init(
         taskId: String,
+        title: String,
         status: TaskStatus,
         live: Bool,
         exitCode: Option<Int64>,
@@ -182,6 +187,7 @@ public class RemoteTaskStatus {
         tmux: String
     ) {
         this.taskId = taskId
+        this.title = title
         this.status = status
         this.live = live
         this.exitCode = exitCode
@@ -226,6 +232,7 @@ private let TASK_STORE_PROCESS_CACHE = HashMap<String, ArrayList<Task>>()
 public class TaskStore {
     private let storageDir: Path
     private let tasksFile: Path
+    private let tasksBackupFile: Path
     private let storageKey: String
     private var memoryTasks: Option<ArrayList<Task>> = None
 
@@ -233,6 +240,7 @@ public class TaskStore {
         let base = taskCoreStoragePath(".cc-mobile-local")
         this.storageDir = base
         this.tasksFile = base.join("tasks.json")
+        this.tasksBackupFile = base.join("tasks.json.bak")
         this.storageKey = base.toString()
         ensureDirectory(base)
     }
@@ -241,6 +249,7 @@ public class TaskStore {
         let base = taskCoreStoragePath(storageDir)
         this.storageDir = base
         this.tasksFile = base.join("tasks.json")
+        this.tasksBackupFile = base.join("tasks.json.bak")
         this.storageKey = base.toString()
         ensureDirectory(base)
     }
@@ -258,13 +267,20 @@ public class TaskStore {
             case None => ()
         }
 
-        try {
-            let tasks = TaskCoreJson.decodeTasks(String.fromUtf8(File.readFrom(tasksFile)))
-            memoryTasks = Some(cloneTasks(tasks))
-            TASK_STORE_PROCESS_CACHE[storageKey] = cloneTasks(tasks)
-            return tasks
-        } catch (e: Exception) {
-            return ArrayList<Task>()
+        match (readTasksFile(tasksFile)) {
+            case Some(tasks) =>
+                memoryTasks = Some(cloneTasks(tasks))
+                TASK_STORE_PROCESS_CACHE[storageKey] = cloneTasks(tasks)
+                return tasks
+            case None => ()
+        }
+
+        match (readTasksFile(tasksBackupFile)) {
+            case Some(tasks) =>
+                memoryTasks = Some(cloneTasks(tasks))
+                TASK_STORE_PROCESS_CACHE[storageKey] = cloneTasks(tasks)
+                return tasks
+            case None => return ArrayList<Task>()
         }
     }
 
@@ -273,7 +289,9 @@ public class TaskStore {
         TASK_STORE_PROCESS_CACHE[storageKey] = cloneTasks(tasks)
         try {
             ensureDirectory(storageDir)
-            File.writeTo(tasksFile, TaskCoreJson.encodeTasks(tasks).toArray())
+            let encoded = TaskCoreJson.encodeTasks(tasks).toArray()
+            File.writeTo(tasksBackupFile, encoded)
+            File.writeTo(tasksFile, encoded)
         } catch (e: Exception) {
             ()
         }
@@ -318,6 +336,23 @@ public class TaskStore {
         }
         if (removed) {
             saveTasks(tasks)
+        }
+    }
+
+    private func readTasksFile(path: Path): Option<ArrayList<Task>> {
+        try {
+            let text = String.fromUtf8(File.readFrom(path))
+            let trimmed = text.trimAscii()
+            if (trimmed.size == 0) {
+                return None
+            }
+            let tasks = TaskCoreJson.decodeTasks(text)
+            if (tasks.size == 0 && trimmed != "[]") {
+                return None
+            }
+            return Some(tasks)
+        } catch (e: Exception) {
+            return None
         }
     }
 }
@@ -616,6 +651,7 @@ public class FakeRemoteTaskGateway <: RemoteTaskGateway {
         wrappedPrompts[task.id] = wrappedPrompt
         tasks[task.id] = RemoteTaskStatus(
             task.id,
+            task.title,
             TaskStatus.worktree_created,
             false,
             None,
@@ -636,6 +672,7 @@ public class FakeRemoteTaskGateway <: RemoteTaskGateway {
         }
         tasks[task.id] = RemoteTaskStatus(
             task.id,
+            task.title,
             TaskStatus.running,
             true,
             None,
@@ -657,6 +694,7 @@ public class FakeRemoteTaskGateway <: RemoteTaskGateway {
         for ((_, status) in tasks) {
             rows.append(RemoteTaskRow(
                 status.taskId,
+                status.title,
                 status.status,
                 status.live,
                 status.exitCode,
@@ -937,6 +975,7 @@ private func normalizedRemoteStatus(status: TaskStatus, live: Bool, exitCode: Op
 
 private func applyRemoteRow(task: Task, row: RemoteTaskRow): Unit {
     task.status = normalizedRemoteStatus(row.status, row.live, row.exitCode)
+    applyRemoteTitle(task, row.title)
     task.repoPath = row.repo
     task.branchName = row.branch
     task.worktreePath = row.worktree
@@ -947,6 +986,7 @@ private func applyRemoteRow(task: Task, row: RemoteTaskRow): Unit {
 
 private func applyRemoteStatus(task: Task, status: RemoteTaskStatus): Unit {
     task.status = normalizedRemoteStatus(status.status, status.live, status.exitCode)
+    applyRemoteTitle(task, status.title)
     task.repoPath = status.repo
     task.worktreePath = status.worktree
     task.branchName = status.branch
@@ -959,7 +999,7 @@ private func taskFromRemoteRow(row: RemoteTaskRow, serverId: String): Task {
     let now = taskCoreNowSeconds()
     return Task(
         row.taskId,
-        row.taskId,
+        fallbackTaskTitle(row.taskId, row.title),
         "",
         serverId,
         row.repo,
@@ -1015,6 +1055,7 @@ private func cloneRemoteStatus(
 ): RemoteTaskStatus {
     return RemoteTaskStatus(
         source.taskId,
+        source.title,
         status,
         live,
         exitCode,
@@ -1023,6 +1064,21 @@ private func cloneRemoteStatus(
         source.branch,
         source.tmux
     )
+}
+
+private func applyRemoteTitle(task: Task, title: String): Unit {
+    let cleaned = title.trimAscii()
+    if (cleaned.size > 0 && (task.title.size == 0 || task.title == task.id)) {
+        task.title = cleaned
+    }
+}
+
+private func fallbackTaskTitle(taskId: String, title: String): String {
+    let cleaned = title.trimAscii()
+    if (cleaned.size > 0) {
+        return cleaned
+    }
+    return taskId
 }
 
 private func cloneTask(task: Task): Task {

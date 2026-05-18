@@ -1,0 +1,2 @@
+[33mwarning[0m: No such directory: 'C:\Users\39388\.cangjie-sdk\5.0\cangjie/build/linux_ohos_aarch64_llvm/openssl'. The argument is ignored.
+ [36m#[0m [0mnote[0m: this warning can be suppressed by setting the compiler option `-Woff driver-arg`
